@@ -32,6 +32,8 @@ export default class Number extends React.PureComponent {
         onChange={this.onChange.bind(this)}
         onKeyDown={this.onKeyDown.bind(this)}
         onBlur={this.onBlur.bind(this)}
+        onMouseUp={this.onMouseUp.bind(this)}
+        onMouseDown={this.onMouseDown.bind(this)}
       >
       </input>
     )
@@ -52,13 +54,14 @@ export default class Number extends React.PureComponent {
   }
 
   onKeyDown(e) {
-    if(e.which === 13) {
+    if (e.which === 13) {
       this.handleChange(this.truncate(e.target.value));
     }
   }
 
   onBlur(e) {
     this.handleChange(this.truncate(e.target.value));
+    this.props.onBlur(e);
   }
 
   isNumber(value) {
@@ -86,6 +89,18 @@ export default class Number extends React.PureComponent {
     if (!this.state.invalid && this.props.onFinishChange) {
       this.props.onFinishChange(parseFloat(value));
     }
+  }
+
+  onMouseDrag(e) {
+    this.props.onMouseDrag(e);
+  }
+
+  onMouseUp(e) {
+    this.props.onMouseUp(e);
+  }
+
+  onMouseDown(e) {
+    this.props.onMouseDown(e);
   }
 
 }
